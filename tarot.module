@@ -1,7 +1,7 @@
 <?php
 /**
  * Implements Hook Menu
- * @return array $items
+ * @return array $items 
  *
  * notes: hook_menu() defines the uri paths and maps them to corresponding 
  * "page callback" functions.  The callbacks in turn generate data (in the form of "render arrays") 
@@ -22,7 +22,7 @@ function tarot_menu()
         'page callback' => 'tarot_homepage'
         
     );
-       
+    
     return $items;
     
 }
@@ -46,11 +46,11 @@ function tarot_homepage()
         'height' => '234px'
     );
     
-
+    
     // Render array that passes content for the Past card 
     $content['past'] = array(
         '#type' => 'markup',
-        '#markup' => '<h3> Your Past </h3>' . theme('image', $pastImg)         
+        '#markup' => '<h3> Your Past </h3>' . theme('image', $pastImg)
     );
     
     $presentImg = array(
@@ -61,7 +61,7 @@ function tarot_homepage()
         'height' => '234px'
     );
     
-
+    
     // Render array for the Present Card
     $content['present'] = array(
         '#type' => 'markup',
@@ -79,7 +79,7 @@ function tarot_homepage()
     // Render array for the Future Card
     $content['future'] = array(
         '#type' => 'markup',
-        '#markup' => '<h3> Your Future </h3>'. theme('image', $futureImg)
+        '#markup' => '<h3> Your Future </h3>' . theme('image', $futureImg)
     );
     
     $content['form'] = drupal_get_form('_try_again', 'try again');
@@ -92,7 +92,7 @@ function tarot_homepage()
 
 function _select_random_card()
 {
-
+    
     $card = rand(0, 77);
     
     $result = db_select('tarot_cards', 'c')->fields('c')->condition('card_id', $card, '=')->execute()->fetchAssoc();
@@ -101,6 +101,7 @@ function _select_random_card()
     return $result;
     
 }
+
 function _try_again($form, &$form_state, $vars)
 {
     $form = array();
@@ -114,4 +115,3 @@ function _try_again($form, &$form_state, $vars)
     
     return $form;
 }
-
