@@ -1,14 +1,13 @@
 <?php
 /**
  * Implements Hook Menu
- * @return array $items 
- *
- * notes: hook_menu() defines the uri paths and maps them to corresponding 
+ * 
+ *  hook_menu() defines the uri paths created by the module and maps them to corresponding 
  * "page callback" functions.  The callbacks in turn generate data (in the form of "render arrays") 
- * that are passed to the template layer
- *  
+ * that are later used to create the page content
+ * 
+ * @return array $items  
  */
-
 function tarot_menu()
 {
     $items = array();
@@ -28,7 +27,13 @@ function tarot_menu()
 }
 
 
-// Page Callback for path: /tarot
+
+/**
+ * Page Callback 
+ * Generates content to be displayed at path /tarot
+ * 
+ * @return array $content
+ */
 function tarot_homepage()
 {
     $content = array();
@@ -90,6 +95,10 @@ function tarot_homepage()
 }
 
 
+/**
+ * selects a random card from tarot deck
+ * @return array card information from db
+ */
 function _select_random_card()
 {
     
@@ -102,10 +111,14 @@ function _select_random_card()
     
 }
 
+
+/**
+ * builds the form array used by drupal_get_form() 
+ * 
+ */
 function _try_again($form, &$form_state, $vars)
 {
     $form = array();
-    
     
     $form['buttons']['submit'] = array(
         '#type' => 'submit',

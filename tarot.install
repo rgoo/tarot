@@ -3,11 +3,11 @@
 /**
  * implements hook_schema
  *
- * notes:  this function adds two tables, tarot_cards & tarot_readings, to the db
  */
+
 function tarot_schema()
 {
-    
+    //  adds table schema for tarot_cards to the db
     $schema['tarot_cards'] = array(
         'description' => 'Cards of the Tarot Deck',
         'fields' => array(
@@ -36,7 +36,8 @@ function tarot_schema()
             )
         )
     );
-    
+
+    // adds table schema for tarot_readings to db (I'll be using this in later versions)
     $schema['tarot_readings'] = array(
         'description' => 'Saved Tarot readings by users',
         'fields' => array(
