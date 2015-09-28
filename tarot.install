@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * implements hook_schema
+ *
+ * notes:  this function adds two tables, tarot_cards & tarot_readings, to the db
+ */
+function tarot_schema(){
+
+	$schema['tarot_cards'] = array(
+		'description' => 'Cards of the Tarot Deck',
+		'fields' => array(
+			'card_id' => array(
+				'description' => 'Card ID',
+				'type' => 'int',
+				'not null' => TRUE,
+				),
+			'name' => array(
+				'description' => 'Card Name',
+				'type' => 'text',
+				'not null' => TRUE,
+				),
+			'suit' => array(
+				'description' => 'Card Suit',
+				'type' => 'text',
+				'not null' => TRUE,
+				),
+			),
+		'primary key' => array('card_id'),
+		'unique keys' => array(
+			'card_id' => array('card_id')
+			),
+		);
+
+	$schema['tarot_readings'] = array(
+  'description' => 'Saved Tarot readings by users',
+  'fields' => array(
+    'reading_id' => array(
+      'description' => 'reading id',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'uid' => array(
+      'description' => 'user id',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+    'reading' => array(
+      'description' => 'reading',
+      'type' => 'blob',
+      'not null' => TRUE,
+    ),
+    'timestamp' => array(
+      'description' => 'timestamp',
+      'type' => 'int',
+      'not null' => TRUE,
+    ),
+  ),
+  'primary key' => array('reading_id'),
+);
+
+
+	return $schema;
+}
+
+/**
+ * Implements hook_install()
+ */
+
+function tarot_install(){
+
+	// inserts sql data containing records for each tarot card to our newly created table
+	
+	db_query("INSERT INTO `tarot_cards` (`card_id`, `name`, `suit`) VALUES
+(0, 'The Fool', 'major'),
+(1, 'The Magician', 'major'),
+(2, 'The High Priestess', 'major'),
+(3, 'The Empress', 'major'),
+(4, 'The Emperor', 'major'),
+(5, 'The Hierophant', 'major'),
+(6, 'The Lovers', 'major'),
+(7, 'The Chariot', 'major'),
+(8, 'Strength', 'major'),
+(9, 'The Hermit', 'major'),
+(10, 'Wheel of Fortune', 'major'),
+(11, 'Justice', 'major'),
+(12, 'The Hanged Man', 'major'),
+(13, 'Death', 'major'),
+(14, 'Temperance', 'major'),
+(15, 'The Devil', 'major'),
+(16, 'The Tower', 'major'),
+(17, 'The Star', 'major'),
+(18, 'The Moon', 'major'),
+(19, 'The Sun', 'major'),
+(20, 'Judgement', 'major'),
+(21, 'The World', 'major'),
+(22, 'Ace of Wands', 'wands'),
+(23, 'Two of Wands', 'wands'),
+(24, 'Three of Wands', 'wands'),
+(25, 'Four of Wands', 'wands'),
+(26, 'Five of Wands', 'wands'),
+(27, 'Six of Wands', 'wands'),
+(28, 'Seven of Wands', 'wands'),
+(29, 'Eight of Wands', 'wands'),
+(30, 'Nine of Wands', 'wands'),
+(31, 'Ten of Wands', 'wands'),
+(32, 'Page of Wands', 'wands'),
+(33, 'Knight of Wands', 'wands'),
+(34, 'Queen of Wands', 'wands'),
+(35, 'King of Wands', 'wands'),
+(36, 'Ace of Cups', 'cups'),
+(37, 'Two of Cups', 'cups'),
+(38, 'Three of Cups', 'cups'),
+(39, 'Four of Cups', 'cups'),
+(40, 'Five of Cups', 'cups'),
+(41, 'Six of Cups', 'cups'),
+(42, 'Seven of Cups', 'cups'),
+(43, 'Eight of Cups', 'cups'),
+(44, 'Nine of Cups', 'cups'),
+(45, 'Ten of Cups', 'cups'),
+(46, 'Page of Cups', 'cups'),
+(47, 'Knight of Cups', 'cups'),
+(48, 'Queen of Cups', 'cups'),
+(49, 'King of Cups', 'cups'),
+(50, 'Ace of Swords', 'swords'),
+(51, 'Two of Swords', 'swords'),
+(52, 'Three of Swords', 'swords'),
+(53, 'Four of Swords', 'swords'),
+(54, 'Five of Swords', 'swords'),
+(55, 'Six of Swords', 'swords'),
+(56, 'Seven of Swords', 'swords'),
+(57, 'Eight of Swords', 'swords'),
+(58, 'Nine of Swords', 'swords'),
+(59, 'Ten of Swords', 'swords'),
+(60, 'Page of Swords', 'swords'),
+(61, 'Knight of Swords', 'swords'),
+(62, 'Queen of Swords', 'swords'),
+(63, 'King of Swords', 'swords'),
+(64, 'Ace of Pentacles', 'pentacles'),
+(65, 'Two of Pentacles', 'pentacles'),
+(66, 'Three of Pentacles', 'pentacles'),
+(67, 'Four of Pentacles', 'pentacles'),
+(68, 'Five of Pentacles', 'pentacles'),
+(69, 'Six of Pentacles', 'pentacles'),
+(70, 'Seven of Pentacles', 'pentacles'),
+(71, 'Eight of Pentacles', 'pentacles'),
+(72, 'Nine of Pentacles', 'pentacles'),
+(73, 'Ten of Pentacles', 'pentacles'),
+(74, 'Page of Pentacles', 'pentacles'),
+(75, 'Knight of Pentacles', 'pentacles'),
+(76, 'Queen of Pentacles', 'pentacles'),
+(77, 'King of Pentacles', 'pentacles')
+
+;"
+);
+ 
+}

@@ -1,0 +1,117 @@
+<?php
+/**
+ * Implements Hook Menu
+ * @return array $items
+ *
+ * notes: hook_menu() defines the uri paths and maps them to corresponding 
+ * "page callback" functions.  The callbacks in turn generate data (in the form of "render arrays") 
+ * that are passed to the template layer
+ *  
+ */
+
+function tarot_menu()
+{
+    $items = array();
+    
+    // array for path tarot/
+    $items['tarot'] = array(
+        
+        'title' => 'Tarot Reading',
+        'description' => 'Tarot Homepage',
+        'access callback' => TRUE,
+        'page callback' => 'tarot_homepage'
+        
+    );
+       
+    return $items;
+    
+}
+
+
+// Page Callback for path: /tarot
+function tarot_homepage()
+{
+    $content = array();
+    
+    $past    = _select_random_card();
+    $present = _select_random_card();
+    $future  = _select_random_card();
+    
+    
+    $pastImg = array(
+        'path' => base_path() . drupal_get_path('module', 'tarot') . '/deck3/' . $past['card_id'] . '.jpg',
+        'alt' => t('Your Past'),
+        'title' => t('Your Past'),
+        'width' => '150px',
+        'height' => '234px'
+    );
+    
+
+    // Render array that passes content for the Past card 
+    $content['past'] = array(
+        '#type' => 'markup',
+        '#markup' => '<h3> Your Past </h3>' . theme('image', $pastImg)         
+    );
+    
+    $presentImg = array(
+        'path' => base_path() . drupal_get_path('module', 'tarot') . '/deck3/' . $present['card_id'] . '.jpg',
+        'alt' => t('Your Present'),
+        'title' => t('Your Present'),
+        'width' => '150px',
+        'height' => '234px'
+    );
+    
+
+    // Render array for the Present Card
+    $content['present'] = array(
+        '#type' => 'markup',
+        '#markup' => '<h3> Your Present </h3>' . theme('image', $presentImg)
+    );
+    
+    $futureImg = array(
+        'path' => base_path() . drupal_get_path('module', 'tarot') . '/deck3/' . $future['card_id'] . '.jpg',
+        'alt' => t('Your Future'),
+        'title' => t('Your Future'),
+        'width' => '150px',
+        'height' => '234px'
+    );
+    
+    // Render array for the Future Card
+    $content['future'] = array(
+        '#type' => 'markup',
+        '#markup' => '<h3> Your Future </h3>'. theme('image', $futureImg)
+    );
+    
+    $content['form'] = drupal_get_form('_try_again', 'try again');
+    
+    
+    return $content;
+    
+}
+
+
+function _select_random_card()
+{
+
+    $card = rand(0, 77);
+    
+    $result = db_select('tarot_cards', 'c')->fields('c')->condition('card_id', $card, '=')->execute()->fetchAssoc();
+    
+    
+    return $result;
+    
+}
+function _try_again($form, &$form_state, $vars)
+{
+    $form = array();
+    
+    
+    $form['buttons']['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Try Again')
+    );
+    
+    
+    return $form;
+}
+
