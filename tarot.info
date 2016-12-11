@@ -1,5 +1,5 @@
 name = Tarot Module
-description = Generates basic Past-Present-Future Tarot card readings.  
+description = Generates basic Past-Present-Future Tarot card readings.
 package = Custom
 core = 7.x
-
+dependencies[] = views
